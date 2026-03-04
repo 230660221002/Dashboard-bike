@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+sns.set_style("whitegrid")
 
 st.set_page_config(page_title="Bike Sharing Dashboard", layout="wide")
 
@@ -72,11 +73,12 @@ st.markdown("---")
 
 st.subheader("Rata-rata Penyewaan Berdasarkan Musim")
 
-season_avg = filtered_df.groupby("season")["cnt"].mean()
+fig1, ax1 = plt.subplots(figsize=(8,5))
+sns.boxplot(data=filtered_df, x="season", y="cnt", ax=ax1)
 
-fig1, ax1 = plt.subplots()
-season_avg.plot(kind="bar", ax=ax1)
-ax1.set_ylabel("Rata-rata Rental")
+ax1.set_title("Distribusi Penyewaan Sepeda Berdasarkan Musim")
+ax1.set_xlabel("Musim")
+ax1.set_ylabel("Jumlah Rental")
 
 st.pyplot(fig1)
 
@@ -101,10 +103,12 @@ st.pyplot(fig2)
 
 st.subheader("Pengaruh Cuaca terhadap Penyewaan")
 
-weather_avg = filtered_df.groupby("weathersit")["cnt"].mean()
+fig3, ax3 = plt.subplots(figsize=(8,5))
+sns.boxplot(data=filtered_df, x="weathersit", y="cnt", ax=ax3)
 
-fig3, ax3 = plt.subplots()
-weather_avg.plot(kind="bar", ax=ax3)
+ax3.set_title("Distribusi Penyewaan Sepeda Berdasarkan Kondisi Cuaca")
+ax3.set_xlabel("Kondisi Cuaca")
+ax3.set_ylabel("Jumlah Rental")
 
 st.pyplot(fig3)
 
